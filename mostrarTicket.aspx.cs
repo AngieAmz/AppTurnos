@@ -27,11 +27,12 @@ namespace App_Turnos
         {
             string conectar = ConfigurationManager.ConnectionStrings["conexion"].ConnectionString;
             SqlConnection cn = new SqlConnection(conectar);
-            string consulta = "INSERT INTO Turnos (turno, descripcion) values (@turno, @descripcion)";
+            string consulta = "INSERT INTO Turnos (turno, descripcion, cajero) values (@turno, @descripcion, @cajero)";
             SqlCommand com = new SqlCommand(consulta, cn);
             com.Connection.Open();
             com.Parameters.Add("@turno", SqlDbType.VarChar, 50).Value = turn;
             com.Parameters.Add("@descripcion", SqlDbType.VarChar, 50).Value = desc;
+            com.Parameters.Add("@cajero", SqlDbType.Int).Value = 0;
             com.ExecuteNonQuery();
         }
 

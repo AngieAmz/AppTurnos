@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Media;
+using System.Threading;
 
 namespace App_Turnos
 {
@@ -22,9 +24,10 @@ namespace App_Turnos
             {
                 llenarTabla();
                 Response.Headers.Add("Refresh", "1");
+                filaSeleccionada();
+                Valor();
+                
             }
-
-            
 
         }
 
@@ -32,7 +35,7 @@ namespace App_Turnos
         public void llenarTabla()
         {
             cn = new SqlConnection(conectar);
-            string consulta = "SELECT * FROM llamar_turno";
+            string consulta = "SELECT * FROM llamar_turno ORDER BY id ASC";
             cmd = new SqlCommand(consulta, cn);
             cmd.Connection.Open();
             dt = new DataTable();
@@ -74,7 +77,9 @@ namespace App_Turnos
             }
 
             limpiar();
+
         }
+
 
         public void limpiar()
         {
@@ -92,6 +97,45 @@ namespace App_Turnos
                 cmd.Connection.Close();
             }
         }
+
+        void filaSeleccionada()
+        {
+            if(tablaLlamada.Rows.Count != 0)
+            {
+            tablaLlamada.Rows[tablaLlamada.Rows.Count - 1].BackColor = System.Drawing.Color.DarkGreen;
+            tablaLlamada.Rows[tablaLlamada.Rows.Count - 1].ForeColor = System.Drawing.Color.White; 
+            }
+        }
+
+        void Valor()
+        {
+            cn = new SqlConnection(conectar);
+            string query = "SELECT * FROM llamar_turno where valor= 'true'";
+            cmd = new SqlCommand(query, cn);
+            cmd.Connection.Open();
+            dr = cmd.ExecuteReader();
+            if (dr.HasRows)
+            {
+               
+                SoundPlayer sound = new SoundPlayer(@"\\DESKTOP-1RLVORE\Release\Sonidos\siguiente.wav");
+                sound.LoadAsync();
+                sound.Play();
+
+                ValorFalse(); 
+            }
+            cmd.Connection.Close();
+        }
+
+        void ValorFalse()
+        {
+            cn = new SqlConnection(conectar);
+            string query = "UPDATE llamar_turno SET valor='false' where valor='true'";
+            cmd = new SqlCommand(query, cn);
+            cmd.Connection.Open();
+            cmd.ExecuteNonQuery();
+            cmd.Connection.Close();
+        }
+
     }
 
 }

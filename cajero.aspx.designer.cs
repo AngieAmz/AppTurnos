@@ -69,15 +69,6 @@ namespace App_Turnos
         protected global::System.Web.UI.WebControls.DropDownList slcTurno;
 
         /// <summary>
-        /// Control turn.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label turn;
-
-        /// <summary>
         /// Control tablaTurnos.
         /// </summary>
         /// <remarks>
@@ -85,15 +76,6 @@ namespace App_Turnos
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView tablaTurnos;
-
-        /// <summary>
-        /// Control btnRefrescar.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnRefrescar;
 
         /// <summary>
         /// Control btnSiguiente.
